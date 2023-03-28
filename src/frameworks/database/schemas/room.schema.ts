@@ -1,19 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { User } from './user.schema';
+import { UserSchema } from './user.schema';
 
-export type RoomDocument = Room & Document;
+export type RoomDocument = RoomSchema & Document;
 
 @Schema({ versionKey: false, collection: 'rooms' })
-export class Room {
+export class RoomSchema {
   @Prop({ required: true, unique: true })
   name: string;
 
-  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }])
-  users: User[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserSchema' }] })
+  users: UserSchema[];
 
   @Prop([String])
   messages: string[];
 }
-
-export const RoomSchema = SchemaFactory.createForClass(Room);
