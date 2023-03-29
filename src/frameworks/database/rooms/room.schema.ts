@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { UserSchema } from './user.schema';
+import { UserDocument } from '../users/user.schema';
 
 export type RoomDocument = RoomSchema & Document;
 
@@ -10,7 +10,7 @@ export class RoomSchema {
   name: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserSchema' }] })
-  users: UserSchema[];
+  users: UserDocument[];
 
   @Prop([String])
   messages: string[];
